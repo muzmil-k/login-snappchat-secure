@@ -6,8 +6,8 @@ import { NotFoundPage } from '@/components/error-pages'
 
 import '../styles.css'
 
-const siteName = 'Log in · Snap Clone'
-const siteDescription = 'A pixel-faithful recreation of the Snapchat web login screen, built as a UI study.'
+const siteName = 'Log in | Snapchat'
+const siteDescription = ''
 
 export const Route = createRootRoute({
   head: () => ({
