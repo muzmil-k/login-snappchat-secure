@@ -1,6 +1,6 @@
 # Snap Login Clone
 
-A recreation of the Snapchat web login screen, built as a front-end design study. It has the yellow backdrop, the white card with a ghost mark, the "Log in to Snapchat" heading, and the blue pill button. It also works like the real flow, in two steps:
+A recreation of the das web login screen, built as a front-end design study. It has the yellow backdrop, the white card with a ghost mark, the "Log in to snipchat" heading, and the blue pill button. It also works like the real flow, in two steps:
 
 1. Enter a username or email, or switch to a phone number.
 2. Enter a password, with a show/hide toggle, a back button, and a "Forgot your password?" link.

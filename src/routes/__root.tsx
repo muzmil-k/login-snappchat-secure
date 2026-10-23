@@ -6,7 +6,7 @@ import { NotFoundPage } from '@/components/error-pages'
 
 import '../styles.css'
 
-const siteName = 'Log in | Snapchat'
+const siteName = 'Log in | Snipchat'
 const siteDescription = ''
 
 export const Route = createRootRoute({

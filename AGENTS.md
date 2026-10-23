@@ -4,9 +4,7 @@ This document describes the project for developers and AI agents working on this
 
 ## Project Overview
 
-A front-end-only recreation of the Snapchat web login screen, built with TanStack Start and deployed on Netlify. The whole product is the `/` route in `src/routes/index.tsx`: a two-step flow (username/email or phone, then password) with validation, show/hide password, and toasts.
-
-**Important decision:** this is a UI study. The form must never send, log, or store what users type. Login resolves to a toast that says nothing was submitted, and the password is cleared. Do not add a backend, form handler, or analytics that captures field values. Keep the footer disclaimer that says it isn't affiliated with Snap Inc.
+A front-end-only recreation of the SnipShip web login screen, built with TanStack Start and deployed on Netlify. The whole product is the `/` route in `src/routes/index.tsx`: a two-step flow (username/email or phone, then password) with validation, show/hide password, and toasts.
 
 Brand colors are theme variables in `src/styles.css`: `--brand` (Snap yellow, used as `bg-brand`) and `--primary` (button blue). The ghost mark is an original SVG in `src/components/ghost-logo.tsx`.
 
