@@ -114,7 +114,7 @@ function LoginPage() {
           {step === 'identifier' ? (
             <form onSubmit={handleNext} noValidate>
               <h1 className="mb-8 text-center text-2xl font-extrabold tracking-tight text-black">
-                Log in to Snappchat
+                Log in to Snapchat
               </h1>
 
               <FieldLabel htmlFor="identifier">
@@ -220,7 +220,7 @@ function LoginPage() {
           )}
 
           <div className="mt-10 border-t border-neutral-200 pt-6 text-center text-sm text-neutral-600">
-            New to Snappchat?{' '}
+            New to Snapchat?{' '}
             <a
               href="#"
               onClick={(e) => {
